@@ -41,15 +41,7 @@ hitUrl = (target, url, req, next) ->
     return next()
   , Math.floor(Math.random() * 5 + 1) * 200
 
-sitemaps = [
-  [
-    loc: ['http://buyahipflask.com/']
-  ,
-    loc: ['http://buyahipflask.com/url2']
-  ,
-    loc: ['http://buyahipflask.com/url3']
-  ]
-]
+sitemaps = []
 
 # Do the work
 # This nasty mess of nested callbacks should be cleaned up, how? #3
