@@ -3,6 +3,8 @@ fs = require 'fs'
 xml2js = require 'xml2js'
 parser = new xml2js.Parser()
 
+request = require 'request'
+
 # Our flow control module
 flow = require './flow.coffee'
 
@@ -17,10 +19,7 @@ hitIt = (url, next) ->
       console.log "Just finished url %s", url.loc[0]
       next()
   # Do the work here, probably with async requests
-  setTimeout () ->
-    finished()
-  ,
-    Math.floor(Math.random() * 5 + 1) * 100
+  request url.loc[0], finished
 
 # Read the file, parse the XML, and start flow control
 fs.readFile __dirname + '/sitemaps/sitemap.xml', (err, data) ->
