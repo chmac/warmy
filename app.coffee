@@ -19,7 +19,12 @@ hitIt = (url, next) ->
       console.log "Just finished url %s", url.loc[0]
       next()
   # Do the work here, probably with async requests
-  request url.loc[0], finished
+  request
+    uri: url.loc[0]
+    method: 'PURGE'
+  ,
+    finished
+  # Now add more requests with other headers
 
 # Read the file, parse the XML, and start flow control
 fs.readFile __dirname + '/sitemaps/sitemap.xml', (err, data) ->
