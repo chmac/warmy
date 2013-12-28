@@ -9,11 +9,23 @@ flow = require './flow.coffee'
 # Do the heavy lifting...
 hitIt = (url, next) ->
   console.log "Just started url %s", url.loc[0]
+  results = 0
+  finished = () ->
+    if results++ is 3
+      console.log "Just finished url %s", url.loc[0]
+      next()
   # Do the work here, probably with async requests
   # We have a nested flow control problem... #1
   setTimeout () ->
-    console.log "Just finished url %s", url.loc[0]
-    next()
+    finished()
+  ,
+    Math.floor(Math.random() * 5 + 1) * 100
+  setTimeout () ->
+    finished()
+  ,
+    Math.floor(Math.random() * 5 + 1) * 100
+  setTimeout () ->
+    finished()
   ,
     Math.floor(Math.random() * 5 + 1) * 100
 
