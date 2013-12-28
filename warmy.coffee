@@ -1,5 +1,7 @@
 fs = require 'fs'
 
+async = require 'async'
+
 xml2js = require 'xml2js'
 parser = new xml2js.Parser()
 
