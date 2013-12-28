@@ -34,6 +34,16 @@ hitIt = (url, next) ->
     finished
   # Now add more requests with other headers
 
+sitemaps = [
+  [
+    loc: ['http://buyahipflask.com/']
+    ,
+    loc: ['http://buyahipflask.com/url2']
+    ,
+    loc: ['http://buyahipflask.com/url3']
+  ]
+]
+
 # Read the file, parse the XML, and start flow control
 fs.readFile __dirname + '/sitemaps/sitemap.xml', (err, data) ->
   parser.parseString data, (err, result) ->
