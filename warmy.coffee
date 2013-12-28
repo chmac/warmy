@@ -13,9 +13,6 @@ __ = require 'underscore'
 # Load the config
 config = require './config.example.coffee'
 
-# Our flow control module
-flow = require './flow.coffee'
-
 # Do the heavy lifting...
 hitIt = (url, next) ->
   console.log "Just started url %s", url.loc[0]
