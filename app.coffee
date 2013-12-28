@@ -11,7 +11,8 @@ hitIt = (url, next) ->
   console.log "Just started url %s", url.loc[0]
   results = 0
   finished = () ->
-    if results++ is 3
+    results++
+    if results is 3
       console.log "Just finished url %s", url.loc[0]
       next()
   # Do the work here, probably with async requests
