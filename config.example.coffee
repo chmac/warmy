@@ -4,8 +4,8 @@ config =
   ]
   # Target multiple machines with all requests
   targets = [
-    'front.mcspr.net'
-    'usa1.pergento.net'
+    'host1.domain.tld'
+    'host2.domain.tld'
   ]
   # Make one of each of these requests on the target machine
   requests = [
