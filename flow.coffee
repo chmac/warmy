@@ -1,7 +1,7 @@
 # We don't care about results, only flow control
 # Inspired by http://book.mixu.net/node/ch7.html
 
-flow = (limit, items, func) ->
+flow = (limit, items, final, func) ->
   running = 0
   
   launcher = () ->
@@ -11,6 +11,8 @@ flow = (limit, items, func) ->
         running--
         if items.length > 0
           launcher()
+        else
+          final?()
       running++
   
   launcher()
