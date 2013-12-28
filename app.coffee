@@ -10,20 +10,13 @@ flow = require './flow.coffee'
 hitIt = (url, next) ->
   console.log "Just started url %s", url.loc[0]
   results = 0
+  requests = 1
   finished = () ->
     results++
-    if results is 3
+    if results is requests
       console.log "Just finished url %s", url.loc[0]
       next()
   # Do the work here, probably with async requests
-  setTimeout () ->
-    finished()
-  ,
-    Math.floor(Math.random() * 5 + 1) * 100
-  setTimeout () ->
-    finished()
-  ,
-    Math.floor(Math.random() * 5 + 1) * 100
   setTimeout () ->
     finished()
   ,
