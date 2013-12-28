@@ -16,7 +16,6 @@ hitIt = (url, next) ->
       console.log "Just finished url %s", url.loc[0]
       next()
   # Do the work here, probably with async requests
-  # We have a nested flow control problem... #1
   setTimeout () ->
     finished()
   ,
