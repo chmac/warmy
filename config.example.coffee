@@ -1,7 +1,13 @@
-module.exports =
+config =
   sitemaps = [
     __dir + 'sitemaps/sitemap.xml'
   ]
+  # Target multiple machines with all requests
+  targets = [
+    'front.mcspr.net'
+    'usa1.pergento.net'
+  ]
+  # Make one of each of these requests on the target machine
   requests = [
     method: 'PURGE'
   ,
@@ -14,3 +20,5 @@ module.exports =
       X-Forwarded-HTTPS: "on"
       X-PSA-Optimize-For-SPDY: '2'
   ]
+
+module.exports = config
