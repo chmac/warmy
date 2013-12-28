@@ -1,6 +1,6 @@
 # We don't care about results, only flow control
 
-module.exports = (limit, async, items) ->
+flow = (limit, async, items) ->
   running = 0
   
   launcher = () ->
@@ -13,3 +13,5 @@ module.exports = (limit, async, items) ->
       running++
   
   launcher()
+
+module.exports = flow
