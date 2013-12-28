@@ -44,9 +44,9 @@ hitUrl = (target, url, req, next) ->
 sitemaps = [
   [
     loc: ['http://buyahipflask.com/']
-    ,
+  ,
     loc: ['http://buyahipflask.com/url2']
-    ,
+  ,
     loc: ['http://buyahipflask.com/url3']
   ]
 ]
