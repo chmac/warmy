@@ -10,6 +10,7 @@ flow = require './flow.coffee'
 hitIt = (url, next) ->
   console.log "Just started url %s", url.loc[0]
   # Do the work here, probably with async requests
+  # We have a nested flow control problem... #1
   setTimeout () ->
     console.log "Just finished url %s", url.loc[0]
     next()
