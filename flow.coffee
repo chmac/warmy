@@ -3,15 +3,18 @@
 
 flow = (limit, items, final, func) ->
   running = 0
+  results = 0
+  noItems = items.length
   
   launcher = () ->
     while running < limit && items.length > 0
       item = items.shift()
       func item, ()->
         running--
+        results++
         if items.length > 0
           launcher()
-        else
+        else if results.length is noItems
           final?()
       running++
   
