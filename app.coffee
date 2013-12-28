@@ -17,7 +17,7 @@ hitIt = (url, next) ->
     Math.floor(Math.random() * 5 + 1) * 100
 
 # Read the file, parse the XML, and start flow control
-fs.readFile __dirname + '/sitemaps/sitemap_kilt.xml', (err, data) ->
+fs.readFile __dirname + '/sitemaps/sitemap.xml', (err, data) ->
   parser.parseString data, (err, result) ->
     console.log "Sitemap parsed..."
     flow 3, hitIt, result.urlset.url
