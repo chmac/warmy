@@ -13,7 +13,9 @@ hitIt = (url, next) ->
   console.log "Just started url %s", url.loc[0]
   results = 0
   requests = 1
-  finished = () ->
+  finished = (err, response, body) ->
+    if err or response.statusCode isnt 200
+      console.log "Error %s with response code %s", err, response.statusCode
     results++
     if results is requests
       console.log "Just finished url %s", url.loc[0]
