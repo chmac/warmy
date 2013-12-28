@@ -51,21 +51,43 @@ sitemaps = [
   ]
 ]
 
-# Read the file, parse the XML, and start flow control
-fs.readFile __dirname + '/sitemaps/sitemap.xml', (err, data) ->
-  parser.parseString data, (err, result) ->
-    console.log "Sitemap parsed..."
-    sitemaps.push result.urlset.url
-    work()
-    # Need the after control flow now...
-
-# After all that
+# Do the work
+# This nasty mess of nested callbacks should be cleaned up, how? #3
 work = () ->
-  for target in config.targets
+  console.log "Sitemaps parsed, let's do some work... :-)"
+  async.each config.targets, (target, callback) ->
     console.log "Starting target %s", target
-    flow 2, sitemaps, null, (sitemap, next) ->
-      console.log "Starting on next sitemap..."
-      flow 3, sitemap, next, (url, next) ->
-        console.log "Just started url %s", url.loc[0]
-        flow 1, config.requests, next, (req, next) ->
-          hitUrl target, url, req, next
+    # Run X sitemaps at once
+    async.eachLimit sitemaps, 2, (sitemap, callback) ->
+      # Run X urls at once
+      async.eachLimit sitemap, 3, (url, callback) ->
+        # Run each request one at a time, sequentially
+        async.eachSeries config.requests, (req, callback) ->
+          # Make the request...
+          console.log "Starting request to target %s for url %s with options %s", target, url.loc[0], JSON.stringify req
+          setTimeout () ->
+            console.log "Finishing request to target %s for url %s with options %s", target, url.loc[0], JSON.stringify req
+            return callback()
+          , Math.floor(Math.random() * 5 + 1) * 200
+        ,
+          callback
+      ,
+        callback
+    ,
+      (err) ->
+        console.log "Target %s finished", target
+        return callback()
+  ,
+    (err) ->
+      console.log "All targets finished"
+
+# Read the file, parse the XML, and start flow control
+async.each config.sitemaps, (sitemap, callback) ->
+  console.log "Reading sitemap file %s", sitemap
+  fs.readFile sitemap, (err, data) ->
+    parser.parseString data, (err, result) ->
+      console.log "Sitemap %s parsed...", sitemap
+      sitemaps.push result.urlset.url
+      callback()
+,
+  work
