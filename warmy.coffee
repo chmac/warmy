@@ -5,6 +5,9 @@ parser = new xml2js.Parser()
 
 request = require 'request'
 
+# Apparently _ doesn't work in coffee http://stackoverflow.com/a/10974072/198232
+__ = require 'underscore'
+
 # Our flow control module
 flow = require './flow.coffee'
 
