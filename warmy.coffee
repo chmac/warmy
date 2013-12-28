@@ -7,7 +7,6 @@ parser = new xml2js.Parser()
 
 request = require 'request'
 
-# Load the config
 config = require './config.example.coffee'
 
 sitemaps = []
