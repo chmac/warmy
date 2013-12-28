@@ -1,6 +1,7 @@
 config =
   sitemaps: [
-    __dirname + 'sitemaps/sitemap.xml'
+    __dirname + '/sitemaps/sitemap.xml'
+    __dirname + '/sitemaps/sitemap2.xml'
   ]
   # Target multiple machines with all requests
   targets: [
