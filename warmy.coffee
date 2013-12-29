@@ -11,6 +11,14 @@ config = require './config.example.coffee'
 
 sitemaps = []
 
+# Make the request...
+doRequest = (target, sitemap, url, req, callback) ->
+  console.log "Starting request to target %s for url %s with options %s", target, url.loc[0], JSON.stringify req
+  setTimeout () ->
+    console.log "Finishing request to target %s for url %s with options %s", target, url.loc[0], JSON.stringify req
+    return callback()
+  , Math.floor(Math.random() * 5 + 1) * 20
+
 # Do the work
 # This nasty mess of nested callbacks should be cleaned up, how? #3
 work = () ->
@@ -23,12 +31,7 @@ work = () ->
       async.eachLimit sitemap, config.concurrency.urls, (url, callback) ->
         # Run each request one at a time, sequentially
         async.eachSeries config.requests, (req, callback) ->
-          # Make the request...
-          console.log "Starting request to target %s for url %s with options %s", target, url.loc[0], JSON.stringify req
-          setTimeout () ->
-            console.log "Finishing request to target %s for url %s with options %s", target, url.loc[0], JSON.stringify req
-            return callback()
-          , Math.floor(Math.random() * 5 + 1) * 200
+          doRequest target, sitemap, url, req, callback
         ,
           callback
       ,
