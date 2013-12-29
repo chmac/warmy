@@ -32,16 +32,12 @@ work = () ->
         # Run each request one at a time, sequentially
         async.eachSeries config.requests, (req, callback) ->
           doRequest target, sitemap, url, req, callback
-        ,
-          callback
-      ,
-        callback
-    ,
-      (err) ->
+        , callback
+      , callback
+    , (err) ->
         console.log "Target %s finished", target
         return callback()
-  ,
-    (err) ->
+  , (err) ->
       console.log "All targets finished"
 
 # Read the file, parse the XML, and start flow control
