@@ -18,9 +18,9 @@ work = () ->
   async.each config.targets, (target, callback) ->
     console.log "Starting target %s", target
     # Run X sitemaps at once
-    async.eachLimit sitemaps, 2, (sitemap, callback) ->
+    async.eachLimit sitemaps, config.concurrency.sitemaps, (sitemap, callback) ->
       # Run X urls at once
-      async.eachLimit sitemap, 3, (url, callback) ->
+      async.eachLimit sitemap, config.concurrency.urls, (url, callback) ->
         # Run each request one at a time, sequentially
         async.eachSeries config.requests, (req, callback) ->
           # Make the request...
