@@ -21,5 +21,8 @@ config =
       'X-Forwarded-HTTPS': "on"
       'X-PSA-Optimize-For-SPDY': '2'
   ]
+  concurrency:
+    sitemaps: 2
+    urls: 3
 
 module.exports = config
