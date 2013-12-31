@@ -9,6 +9,8 @@ request = require 'request'
 
 config = require './config.example.coffee'
 
+urlParser = require 'url'
+
 sitemaps = []
 
 # Make the request...
