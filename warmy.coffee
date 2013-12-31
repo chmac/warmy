@@ -20,7 +20,7 @@ doRequest = (target, sitemap, url, req, callback) ->
   req.headers.host = urlPieces.host
   urlPieces.host = target
   req.url = urlPieces
-  console.log "INFO: Starting request to target %s for url %s with method %s and headers %s", target, urlParser.format(urlPieces), (if req.method? then req.method else null), (if req.headers? then JSON.stringify req.headers? else null)
+  console.log "INFO: Starting request to target %s for url %s with method %s and headers %s", target, urlParser.format(urlPieces), (if req.method? then req.method else null), (if req.headers? then JSON.stringify req.headers else null)
   request req, (err, resp, body) ->
     if err
       console.log "ERROR: There was an error %s for url %s on target %s with options %s", err, target, url.loc[0], JSON.stringify req
