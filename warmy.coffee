@@ -15,11 +15,23 @@ sitemaps = []
 
 # Make the request...
 doRequest = (target, sitemap, url, req, callback) ->
-  console.log "Starting request to target %s for url %s with options %s", target, url.loc[0], JSON.stringify req
-  setTimeout () ->
-    console.log "Finishing request to target %s for url %s with options %s", target, url.loc[0], JSON.stringify req
-    return callback()
-  , Math.floor(Math.random() * 5 + 1) * 20
+  urlPieces = urlParser.parse url.loc[0]
+  req.headers = {} if not req.headers? # req.headers must exist
+  req.headers.host = urlPieces.host
+  urlPieces.host = target
+  req.url = urlPieces
+  console.log "INFO: Starting request to target %s for url %s with options %s", target, urlParser.format(urlPieces), JSON.stringify req
+  request req, (err, resp, body) ->
+    if err
+      console.log "ERROR: There was an error %s for url %s on target %s with options %s", err, target, url.loc[0], JSON.stringify req
+    if resp.statusCode isnt 200
+      console.log "ERROR: Response code %s for url %s on target %s", resp.statusCode, url.loc[0], target
+      console.log "DEBUG: Response body was %s for request url %s", body, url.loc[0]
+    #console.dir resp
+    if config.delay?
+      setTimeout callback, config.delay
+    else
+      callback()
 
 # Do the work
 # This nasty mess of nested callbacks should be cleaned up, how? #3
