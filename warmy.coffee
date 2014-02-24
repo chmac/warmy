@@ -58,7 +58,7 @@ work = () ->
       console.log "All targets finished"
 
 # Read the file, parse the XML, and start flow control
-async.each config.sitemaps, (sitemap, callback) ->
+async.eachSeries config.sitemaps, (sitemap, callback) ->
   console.log "Reading sitemap file %s", sitemap
   fs.readFile sitemap, (err, data) ->
     parser.parseString data, (err, result) ->
