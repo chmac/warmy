@@ -18,7 +18,9 @@ doRequest = (target, sitemap, url, req, callback) ->
   urlPieces = urlParser.parse url.loc[0]
   req.headers = {} if not req.headers? # req.headers must exist
   req.headers.host = urlPieces.host
+  # Need to overwrite both host and hostname
   urlPieces.host = target
+  urlPieces.hostname = target
   req.url = urlPieces
   console.log "INFO: Starting request to target %s for url %s with method %s and headers %s", target, urlParser.format(urlPieces), (if req.method? then req.method else null), (if req.headers? then JSON.stringify req.headers else null)
   request req, (err, resp, body) ->
