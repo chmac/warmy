@@ -53,10 +53,10 @@ doUrl = (host, path) ->
   url = { loc: ['http://' + host + path] }
   sitemap = {}
   async.each config.targets, (target, callback) ->
-    console.log "Starting target %s", target
+    console.log "Starting PURGE target %s", target
     doRequests target, sitemap, url, callback
   , (err) ->
-      console.log "All targets finished"
+      console.log "All PURGE targets finished"
 
 
 # Handle PURGE requests
