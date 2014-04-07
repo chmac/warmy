@@ -29,6 +29,8 @@ doRequest = (target, sitemap, url, req, callback) ->
   # Need to overwrite both host and hostname
   urlPieces.host = target
   urlPieces.hostname = target
+  # Also overwrite the port
+  delete urlPieces.port
   req.url = urlPieces
   console.log "INFO: Starting request to target %s for url %s with method %s and headers %s", target, urlParser.format(urlPieces), (if req.method? then req.method else null), (if req.headers? then JSON.stringify req.headers else null)
   request req, (err, resp, body) ->
