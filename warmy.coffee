@@ -17,7 +17,8 @@ sitemaps = []
 doRequests = (target, sitemap, url, callback) ->
   async.eachSeries config.requests, (req, callback) ->
     doRequest target, sitemap, url, req, callback
-  , callback
+  , (err) ->
+    callback(err)
 
 
 # Make the request...
@@ -56,7 +57,7 @@ work = () ->
       , callback
     , (err) ->
         console.log "Target %s finished", target
-        return callback()
+        return callback(err)
   , (err) ->
       console.log "All targets finished"
 
