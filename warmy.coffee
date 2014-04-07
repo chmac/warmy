@@ -60,10 +60,13 @@ work = () ->
 # Read the file, parse the XML, and start flow control
 async.eachSeries config.sitemaps, (sitemap, callback) ->
   console.log "Reading sitemap file %s", sitemap
-  fs.readFile sitemap, (err, data) ->
-    parser.parseString data, (err, result) ->
-      console.log "Sitemap %s parsed...", sitemap
-      sitemaps.push result.urlset.url
-      callback()
+  if fs.existsSync sitemap
+    fs.readFile sitemap, (err, data) ->
+      parser.parseString data, (err, result) ->
+        console.log "Sitemap %s parsed...", sitemap
+        sitemaps.push result.urlset.url
+        callback()
+  else
+    console.log "ERROR: Sitemap %s does not exist.", sitemap
 ,
   work
