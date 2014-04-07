@@ -45,6 +45,7 @@ doRequest = (target, sitemap, url, req, callback) ->
       callback()
 
 doUrl = (host, path) ->
+  # Hack these to resemble the data in warmy.coffee
   url = { loc: ['http://' + host + path] }
   sitemap = {}
   async.each config.targets, (target, callback) ->
