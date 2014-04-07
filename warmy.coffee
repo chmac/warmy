@@ -18,7 +18,7 @@ doRequests = (target, sitemap, url, callback) ->
   async.eachSeries config.requests, (req, callback) ->
     doRequest target, sitemap, url, req, callback
   , (err) ->
-    callback(err)
+    callback err
 
 
 # Make the request...
