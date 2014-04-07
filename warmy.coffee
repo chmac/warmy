@@ -44,7 +44,6 @@ doRequest = (target, sitemap, url, req, callback) ->
       callback()
 
 # Do the work
-# This nasty mess of nested callbacks should be cleaned up, how? #3
 work = () ->
   console.log "Sitemaps parsed, let's do some work... :-)"
   async.each config.targets, (target, callback) ->
