@@ -53,10 +53,10 @@ doUrl = (host, path) ->
   url = { loc: ['http://' + host + path] }
   sitemap = {}
   async.each config.targets, (target, callback) ->
-    console.log "Starting PURGE target %s", target
+    console.log "INFO: Starting PURGE target %s", target
     doRequests target, sitemap, url, callback
   , (err) ->
-      console.log "All PURGE targets finished"
+      console.log "INFO: All PURGE targets finished"
 
 server.get '/ping', (req, res, next) ->
   res.send 200, 'pong'
@@ -69,13 +69,11 @@ server.get '/flush', (req, res, next) ->
 
 # Handle PURGE requests
 server.put '.*', (req, res, next) ->
-  console.log 'Purge request received'
-  console.dir req.headers.host
-  console.dir req.url
+  console.log 'INFO: Purge request received with host %s and url %s', req.headers.host, req.url
   doUrl req.headers.host, req.url
   res.send 200, 'Will do'
   next()
 
 # Start the server and log where it's running
 close = server.listen 8000, ->
-  console.log "%s listening at %s on %s", server.name, server.url, require('os').hostname()
+  console.log "INFO: %s listening at %s on %s", server.name, server.url, require('os').hostname()
