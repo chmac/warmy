@@ -1,12 +1,5 @@
 http = require 'http'
 
-# Import and instantiate restify
-restify = require "restify" # The core upon which this API is built
-server = restify.createServer()
-
-# Enable parsing of requests
-server.use restify.bodyParser()
-
 async = require 'async'
 
 request = require 'request'
@@ -59,26 +52,6 @@ doUrl = (host, path) ->
     doRequests target, sitemap, url, callback
   , (err) ->
       console.log "INFO: All PURGE targets finished"
-
-server.get '/ping', (req, res, next) ->
-  res.send 200, 'pong'
-  next()
-
-server.get '/flush', (req, res, next) ->
-  console.log 'Flush called.'
-  res.send 200, 'Will do'
-  next()
-
-# Handle PURGE requests
-server.put '.*', (req, res, next) ->
-  console.log 'INFO: Purge request received with host %s and url %s', req.headers.host, req.url
-  doUrl req.headers.host, req.url
-  res.send 200, 'Will do'
-  next()
-
-# Start the server and log where it's running
-close = server.listen 8000, ->
-  console.log "INFO: %s listening at %s on %s", server.name, server.url, require('os').hostname()
 
 # Send a response as JSON
 sendResponse = (res, status, obj) ->
