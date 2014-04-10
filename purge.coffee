@@ -68,7 +68,7 @@ server.get '/flush', (req, res, next) ->
   next()
 
 # Handle PURGE requests
-server.get '.*', (req, res, next) ->
+server.put '.*', (req, res, next) ->
   console.log 'Purge request received'
   console.dir req.headers.host
   console.dir req.url
