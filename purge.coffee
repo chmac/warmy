@@ -1,3 +1,5 @@
+http = require 'http'
+
 # Import and instantiate restify
 restify = require "restify" # The core upon which this API is built
 server = restify.createServer()
@@ -77,3 +79,20 @@ server.put '.*', (req, res, next) ->
 # Start the server and log where it's running
 close = server.listen 8000, ->
   console.log "INFO: %s listening at %s on %s", server.name, server.url, require('os').hostname()
+
+# Send a response as JSON
+sendResponse = (res, status, obj) ->
+  code = parseInt status
+  # Make sure status code is really an integer, crude test
+  if code is Number.NaN
+    code = 200
+  res.writeHead code,
+    'Content-type': 'application/json'
+  res.write JSON.stringify obj
+  res.end()
+
+onRequest = (req, res) ->
+  console.log 'Request received for host %s url %s with method %s', req.headers.host, req.url, req.method
+  sendResponse res, 200, 'Will do'
+
+http.createServer(onRequest).listen(8080)
