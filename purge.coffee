@@ -88,4 +88,6 @@ onRequest = (req, res) ->
       sendResponse res, 501, 'Not Implemented'
 
 # Boot the server on port 8080
-http.createServer(onRequest).listen(8080)
+server = http.createServer onRequest
+server.listen 8080, '127.0.0.10', ->
+  console.log 'INFO: PURGE forwarder started on IP %s port %s on host %s.', server.address().address, server.address().port, require('os').hostname()
