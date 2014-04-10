@@ -64,17 +64,26 @@ sendResponse = (res, status, obj) ->
   res.write JSON.stringify obj
   res.end()
 
-# Handle purge requests
+# Handle PURGE requests
 requestPurge = (req, res) ->
   if not req.headers?.host?
     return sendResponse res, 400, 'Missing Host'
   doUrl req.headers.host, req.url
   sendResponse res, 200, 'Will do'
 
+# Handle GET requests
+requestGet = (req, res) ->
+  if req.url is '/ping'
+    sendResponse res, 200, 'pong'
+  else
+    sendResponse res, 404, 'Not found'
+
+# Handle all requests
 onRequest = (req, res) ->
   console.log 'DEBUG: Request received for host %s url %s with method %s', req.headers.host, req.url, req.method
   switch req.method
     when 'PURGE' then requestPurge req, res
+    when 'GET' then requestGet req, res
     else
       sendResponse res, 501, 'Not Implemented'
 
