@@ -91,8 +91,19 @@ sendResponse = (res, status, obj) ->
   res.write JSON.stringify obj
   res.end()
 
-onRequest = (req, res) ->
-  console.log 'DEBUG: Request received for host %s url %s with method %s', req.headers.host, req.url, req.method
+# Handle purge requests
+requestPurge = (req, res) ->
+  if not req.headers?.host?
+    return sendResponse res, 400, 'Missing Host'
+  doUrl req.headers.host, req.url
   sendResponse res, 200, 'Will do'
 
+onRequest = (req, res) ->
+  console.log 'DEBUG: Request received for host %s url %s with method %s', req.headers.host, req.url, req.method
+  switch req.method
+    when 'PURGE' then requestPurge req, res
+    else
+      sendResponse res, 501, 'Not Implemented'
+
+# Boot the server on port 8080
 http.createServer(onRequest).listen(8080)
