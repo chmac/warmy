@@ -92,7 +92,7 @@ sendResponse = (res, status, obj) ->
   res.end()
 
 onRequest = (req, res) ->
-  console.log 'Request received for host %s url %s with method %s', req.headers.host, req.url, req.method
+  console.log 'DEBUG: Request received for host %s url %s with method %s', req.headers.host, req.url, req.method
   sendResponse res, 200, 'Will do'
 
 http.createServer(onRequest).listen(8080)
