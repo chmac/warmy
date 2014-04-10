@@ -58,6 +58,9 @@ doUrl = (host, path) ->
   , (err) ->
       console.log "All PURGE targets finished"
 
+server.get '/ping', (req, res, next) ->
+  res.send 200, 'pong'
+  next()
 
 # Handle PURGE requests
 server.get '.*', (req, res, next) ->
