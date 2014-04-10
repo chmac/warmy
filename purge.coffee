@@ -62,6 +62,11 @@ server.get '/ping', (req, res, next) ->
   res.send 200, 'pong'
   next()
 
+server.get '/flush', (req, res, next) ->
+  console.log 'Flush called.'
+  res.send 200, 'Will do'
+  next()
+
 # Handle PURGE requests
 server.get '.*', (req, res, next) ->
   console.log 'Purge request received'
