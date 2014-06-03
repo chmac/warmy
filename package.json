@@ -1,0 +1,26 @@
+{
+  "name": "warmy",
+  "version": "0.0.0",
+  "description": "Cache warming and PURGE / BAN forwarding.",
+  "main": "warmy.coffee",
+  "dependencies": {
+    "async": "~0.2.9",
+    "request": "~2.30.0",
+    "xml2js": "~0.4.0",
+    "underscore": "~1.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chmac/warmy.git"
+  },
+  "author": "Callum Macdonald",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chmac/warmy/issues"
+  },
+  "homepage": "https://github.com/chmac/warmy"
+}
