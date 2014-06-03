@@ -29,11 +29,11 @@ doRequest = (target, sitemap, url, req, callback) ->
   req.url = urlPieces
   console.log "INFO: Starting request to target %s for url %s with method %s and headers %s", target, urlParser.format(urlPieces), (if req.method? then req.method else null), (if req.headers? then JSON.stringify req.headers else null)
   request req, (err, resp, body) ->
-    console.log "INFO: Finished request with code %s to target %s for url %s with method %s and headers %s", resp.statusCode, target, urlParser.format(urlPieces), (if req.method? then req.method else null), (if req.headers? then JSON.stringify req.headers else null)
+    console.log "INFO: Finished request with code %s to target %s for url %s with method %s and headers %s", resp?.statusCode, target, urlParser.format(urlPieces), (if req.method? then req.method else null), (if req.headers? then JSON.stringify req.headers else null)
     if err
       console.log "ERROR: There was an error %s for url %s on target %s with options %s", err, target, url.loc[0], JSON.stringify req
-    if resp.statusCode isnt 200
-      console.log "ERROR: Response code %s for url %s on target %s", resp.statusCode, url.loc[0], target
+    if resp?.statusCode isnt 200
+      console.log "ERROR: Response code %s for url %s on target %s", resp?.statusCode, url.loc[0], target
       console.log "DEBUG: Response body was %s for request url %s", body, url.loc[0]
     #console.dir resp
     if config.delay?
