@@ -49,7 +49,9 @@ doUrl = (host, path) ->
   sitemap = {}
   async.each config.targets, (target, callback) ->
     console.log "INFO: Starting PURGE target %s", target
-    doRequests target, sitemap, url, callback
+    req =
+      method: 'BAN'
+    doRequest target, sitemap, url, req, callback
   , (err) ->
       console.log "INFO: All PURGE targets finished"
 
