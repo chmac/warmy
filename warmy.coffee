@@ -34,7 +34,7 @@ doRequest = (target, sitemap, url, req, callback) ->
   req.maxRedirects = 3
   # Ensure we cache a version that supports defer_javascript
   req.headers = {} unless req.headers?
-  req.headers.user-agent: 'Chrome/36'
+  #req.headers.user-agent: 'Chrome/36'
   console.log "INFO: Starting request to target %s for url %s with method %s and headers %s", target, urlParser.format(urlPieces), (if req.method? then req.method else null), (if req.headers? then JSON.stringify req.headers else null)
   request req, (err, resp, body) ->
     console.log "INFO: Finished request with code %s to target %s for url %s with method %s and headers %s", resp?.statusCode, target, urlParser.format(urlPieces), (if req.method? then req.method else null), (if req.headers? then JSON.stringify req.headers else null)
